@@ -1,41 +1,153 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="css/reveal.css">
-		<link rel="stylesheet" href="css/theme/black.css">
+	<title>.d.ts</title>
 
-		<!-- Theme used for syntax highlighting of code -->
-		<link rel="stylesheet" href="lib/css/zenburn.css">
+	<link rel="shortcut icon" type="image/png" href="/favicon.png?source=http://png-1.findicons.com/files/icons/2338/reflection/128/presentation.png"
+	/>
 
-		<!-- Printing and PDF exports -->
-		<script>
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/black.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<style>
+		.eventInfo {
+			position: absolute;
+			bottom: 10px;
+			left: 10px;
+			color: darkgray;
+			font-family: sans-serif;
+			display: flex;
+			flex-flow: row;
+			font-size: small;
+		}
+		
+		#timer {
+			position: absolute;
+			bottom: 10px;
+			right: 100px;
+			color: #666;
+			font-family: sans-serif;
+			display: flex;
+			flex-flow: row;
+			font-size: x-small;
+		}
+		
+		.spacer {
+			width: 15px;
+			height: 15px;
+		}
+	</style>
+
+	<!-- Printing and PDF exports -->
+	<script>
 			var link = document.createElement( 'link' );
 			link.rel = 'stylesheet';
 			link.type = 'text/css';
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<section>
+					<h1>Creating TypeScript Declaration Files</h1>
+					<h2>and Contributing to DefinitelyTyped</h2>
+				</section>
+				<section>
+					<div class="stretch" style="display: flex; flex-flow: row">
+						<div style="display: flex; flex-flow: column;">
+							<div style="flex: 1"></div>
+							<img src="images/me.png" alt="a picture of me">
+							<div style="flex: 1"></div>
+						</div>
+						<div class="spacer"></div>
+						<div style="flex: 1; display: flex; flex-flow: column">
+							<div style="flex: 1"></div>
+							<div>
+								<h2>Joe Skeen</h2>
+								<h4>Intermountain Healthcare</h4>
+								Currently <span id="rank">in top 100</span> contributor to DefinitelyTyped (of over 2300)
+							</div>
+							<div style="flex: 1"></div>
+						</div>
+					</div>
+				</section>
+			</section>
+			<section>TODO: Content</section>
+			<section>
+				<section>
+					<h3>Now it's your turn!</h3>
+					<img src="images/qr-slides.png" alt="https://joeskeen.github.io/dts-OpenWest2016" style="vertical-align: middle">&nbsp;&nbsp;
+					Slides: <a href="https://joeskeen.github.io/dts-OpenWest2016">joeskeen.github.io/dts-OpenWest2016</a><br> Review this
+					talk: <a href="https://joind.in/talk/bf5d7">https://joind.in/talk/bf5d7</a>&nbsp;&nbsp;
+					<img src="images/qr_joindin.png" alt="https://joind.in/talk/bf5d7" style="vertical-align: middle">
+				</section>
+				<section>
+					<h3>More Resources</h3>
+					<ul>
+						<li>
+							Example code:
+							<a href="https://github.com/joeskeen/ngExamples/tree/master/mars-ts">
+							github.com/joeskeen/ngExamples
+						</a> (mars-ts folder)
+						</li>
+						<li>
+							<a href="https://github.com/Microsoft/TypeScript-Handbook/tree/release-2.0/pages/declaration%20files">
+								Official Declaration File Authoring Guide (TypeScript 2.0 Version of TypeScript Handbook)
+							</a>
+						</li>
+						<li>
+							<a href="http://www.typescriptlang.org/docs/handbook/basic-types.html">
+								TypeScript Handbook (where the above guide will someday be published)
+							</a>
+							</a>
+						</li>
+						<li>
+							<a href="http://definitelytyped.org/guides/contributing.html">
+							DefinitelyTyped Contriubution Guide
+						</a>
+						</li>
+						<li>
+							<a href="https://github.com/typings/registry#typings-registry">
+							'Typings' Contribution Guide (for the Typings Registry)
+						</a>
+						</li>
+					</ul>
+				</section>
+			</section>
 		</div>
+	</div>
 
-		<script src="lib/js/head.min.js"></script>
-		<script src="js/reveal.js"></script>
+	<div class="eventInfo">
+		<img src="images/openwest-white.svg?source=https://cfp.openwest.org/uploads/openwest-white.svg" alt="OpenWest logo" style="width: 200px">
+		<div class="spacer"></div>
+		<p>
+			OpenWest Conference 2016<br /> July 13-16 2016<br /> South Towne Expo Center
+		</p>
+	</div>
 
-		<script>
+	<div id="timer"></div>
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
 			// More info https://github.com/hakimel/reveal.js#configuration
 			Reveal.initialize({
 				history: true,
+
+				width: 1200,
+				height: 800,
+				margin: .1,
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
@@ -43,8 +155,67 @@
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
-				]
+				],
+
+				monaco: {
+					theme: 'vs-dark',
+					fontSize: 20
+				}
 			});
+
+			(() => {
+				var presentationStartTime = new Date('Fri Jul 15 2016 11:30:00 GMT-0600 (MDT)');
+				var presentationEndTime = new Date('Fri Jul 15 2016 12:20:00 GMT-0600 (MDT)');
+
+				var loadTime = new Date();
+				var presentationLengthMs = presentationEndTime.getTime() - presentationStartTime.getTime();
+				var fifteenMinutesMs = 1000 * 60 * 15;
+				// in practice mode if within outside of presentation time (with 15 minute buffer)
+				var practiceMode = loadTime.getTime() > (presentationEndTime.getTime() + fifteenMinutesMs)
+					  || loadTime.getTime() < (presentationStartTime.getTime() - fifteenMinutesMs);
+
+				var timeCalcFn = practiceMode ? practiceTimeRemaining : presentationTimeRemaining;
+				var timerElement = document.getElementById('timer');
+				setInterval(() => {
+					var msRemaining = timeCalcFn();
+					var secondsRemaining = Math.floor((msRemaining / 1000) % 60); 
+					var minutesRemaining = Math.floor((msRemaining / 1000 / 60) % 60); 
+					var hoursRemaining = Math.floor(msRemaining / 1000 / 60 / 60); 
+					timerElement.innerText = (practiceMode ? '(Practice Mode) ': '') + hoursRemaining + ':' + minutesRemaining; // + ':' + secondsRemaining;
+				}, 1000);
+				
+				function practiceTimeRemaining() {
+					return presentationLengthMs - (Date.now() - loadTime);
+				}
+
+				function presentationTimeRemaining() {
+					return presentationEndTime - Date.now();
+				}
+			})();
+
+			function setRank(rankingData) {
+				console.dir(rankingData);
+				var data = rankingData.data;
+				var rank;
+				var communityRank = 0;
+				for(var i = 0; i < data.length; i++) {
+					var entry = data[i];
+
+					if (!entry.site_admin)
+						communityRank++;
+					
+					if (entry.login === 'joeskeen') {
+						rank = i + 1;
+						break;
+					}
+				}
+				if (rank) {
+					var ref = document.getElementById('dtContributors').src;
+					document.getElementById('rank').innerHTML = '<a href="' + ref + '">#' + rank + '</a>';
+				}
+			}
 		</script>
-	</body>
+	<script id="dtContributors" src="https://api.github.com/repos/DefinitelyTyped/DefinitelyTyped/contributors?callback=setRank&per_page=100"></script>
+</body>
+
 </html>
