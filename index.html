@@ -83,7 +83,15 @@
 					</div>
 				</section>
 			</section>
-			<section>TODO: Content</section>
+			<section>
+				<div class="stretch">
+					<monaco-editor>
+						<script type="text/plain" class="monaco-code">
+console.log('TODO: Add Content Here');
+						</script>
+					</monaco-editor>
+				</div>
+			</section>
 			<section>
 				<section>
 					<h3>Now it's your turn!</h3>
@@ -154,6 +162,7 @@
 					{ src: 'plugin/markdown/marked.js' },
 					{ src: 'plugin/markdown/markdown.js' },
 					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'node_modules/reveal-monaco/index.js', async: true },
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				],
 
