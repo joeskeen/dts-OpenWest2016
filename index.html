@@ -62,6 +62,11 @@
 				<section>
 					<h1>Creating TypeScript Declaration Files</h1>
 					<h2>and Contributing to DefinitelyTyped</h2>
+					<div class="fragment">
+						or
+						<h1>What to Do</h1>
+						<h2>When TypeScript goes wrong</h2>
+					</div>
 				</section>
 				<section>
 					<div class="stretch" style="display: flex; flex-flow: row">
@@ -84,20 +89,192 @@
 				</section>
 			</section>
 			<section>
-				<div class="stretch">
-					<monaco-editor>
-						<script type="text/plain" class="monaco-code">
-console.log('TODO: Add Content Here');
-						</script>
-					</monaco-editor>
-				</div>
+				<h2>TypeScript Usually Just Works</h2>
+				<h3>Once you get it set up</h3>
+			</section>
+			<section>
+				<h3>Cases Where Typings May Be Wrong</h3>
+				<ul>
+					<li class="fragment">Typings are wrong (contradict the documentation)</li>
+					<li class="fragment">Typings are incomplete (missing documented functionality or options)</li>
+					<li class="fragment">Typings aren't exposing something you need (like an options interface)</li>
+					<li class="fragment">No typings exist</li>
+				</ul>
+			</section>
+			<section>
+				<section>
+					<h2>Examples</h2>
+				</section>
+				<section>
+					<h3>Incorrect</h3>
+					<a href="https://github.com/DefinitelyTyped/DefinitelyTyped/pull/6156/files">https://github.com/DefinitelyTyped/DefinitelyTyped/pull/6156/files</a>
+				</section>
+				<section>
+					<h3>Incomplete</h3>
+					<div class="stretch">
+						<monaco-editor reference='[
+							"/typings/globals/gulp-typescript/index.d.ts",
+							"/typings/globals/gulp/index.d.ts",
+							"/typings/globals/node/index.d.ts",
+							"/typings/globals/orchestrator/index.d.ts",
+							"/typings/globals/q/index.d.ts"
+						]'>
+							<script type="text/plain" class="monaco-code">
+import * as gulp from 'gulp';
+import * as ts from 'gulp-typescript';
+
+gulp.task('compile', () => {
+	return gulp.src('**/*.ts')
+		.pipe(ts({
+			target: 'es5'
+		}))
+		.js
+		.pipe(gulp.dest('./out'));
+});
+							</script>
+						</monaco-editor>
+					</div>
+					<small>
+						<a target="_blank" href="https://github.com/ivogabe/gulp-typescript#options">https://github.com/ivogabe/gulp-typescript#options</a><br>
+						<a target="_blank" href="https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#new---skiplibcheck">https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#new---skiplibcheck</a>
+					</small>
+				</section>
+				<section>
+					<h3>Not Exposed</h3>
+					<div class="stretch">
+						<monaco-editor reference='[
+								"/typings/globals/gulp/index.d.ts",
+								"/typings/globals/node/index.d.ts",
+								"/typings/globals/orchestrator/index.d.ts",
+								"/typings/globals/q/index.d.ts",
+								"/typings/globals/gulp-inject/index.d.ts",
+								"/typings/globals/yargs/index.d.ts",
+								"/typings/globals/vinyl/index.d.ts"
+							]'>
+							<script type="text/plain" class="monaco-code">
+import * as gulp from 'gulp';
+import * as inject from 'gulp-inject'; 
+import { argv as args } from 'yargs';
+
+gulp.task('templates', () => {
+	const injectOptions = {
+		addRootSlash: false
+	};
+
+	if (args.customTag) {
+		injectOptions.starttag = `<!-- inject:${args.customTag} -->`;
+	}
+
+	return gulp.src('index.html')
+		.pipe(inject(gulp.src('**/*.{js,css}', { read: false })), injectOptions)
+		.pipe(gulp.dest('./out'));
+});
+							</script>
+						</monaco-editor>
+					</div>
+					<small>
+						<a href="https://github.com/klei/gulp-inject">https://github.com/klei/gulp-inject</a>
+					</small>
+				</section>
+				<section>
+					<h3>Nonexistant</h3>
+					<div class="stretch">
+						<monaco-editor reference='[
+								"/typings/globals/gulp/index.d.ts",
+								"/typings/globals/node/index.d.ts",
+								"/typings/globals/orchestrator/index.d.ts",
+								"/typings/globals/q/index.d.ts"
+							]'>
+							<script type="text/plain" class="monaco-code">
+import * as gulp from 'gulp';
+import * as templateCache from 'gulp-angular-templatecache';
+
+gulp.task('templates', () => {
+	return gulp.src('templates/**/*.html')
+		.pipe(templateCache())
+		.pipe(gulp.dest('./out'));
+});
+							</script>
+						</monaco-editor>
+					</div>
+					<small><a href="https://github.com/miickel/gulp-angular-templatecache">https://github.com/miickel/gulp-angular-templatecache</a></small>
+				</section>
+			</section>
+			<section>
+				<h2>How to Fix This</h2>
+				<ol>
+					<li class="fragment">
+						Identify the source of the error
+						<ul>
+							<li><code>lib.d.ts</code> - Microsoft/TypeScript project</li>
+							<li>Bundled Typings - Respective Project (comes with NPM package)</li>
+							<li>External Typings -
+								<a href="https://github.com/DefinitelyTyped/DefinitelyTyped/">DefinitelyTyped</a>,
+								<a href="https://github.com/typings/registry">Typings Registry</a>,
+								<a href="https://github.com/typed-typings">Typed Typings</a></li>
+						</ul>
+					</li>
+					<li class="fragment">Fix it</li>
+					<li class="fragment">Submit pull request(s)</li>
+				</ol>
+			</section>
+			<section>
+				<section>
+					<h2>DefinitelyTyped</h2>
+					<div>A great example of an open-source community</div>
+					<a href="https://github.com/DefinitelyTyped/DefinitelyTyped"></a>
+				</section>
+				<section>
+					<h2>How to contribute</h2>
+					<ol>
+						<li class="fragment">Log into GitHub (or create an account)</li>
+						<li class="fragment">Fork DefinitelyTyped and clone</li>
+						<li class="fragment">Make fixes</li>
+						<li class="fragment">Write tests</li>
+						<li class="fragment">Test the fixes with <code>npm test</code></li>
+						<li class="fragment">Push your changes to the fork</li>
+						<li class="fragment">Set up Travis build <a href="https://travis-ci.org/">https://travis-ci.org/</a></li>
+						<li class="fragment">Open a pull request</li>
+					</ol>
+				</section>
+				<section>
+					<iframe src="http://definitelytyped.org/guides/contributing.html" class="stretch" style="background-color: white" frameborder="0"></iframe>
+					<a href="http://definitelytyped.org/guides/contributing.html">DefinitelyTyped Contribution Guide</a>
+				</section>
+			</section>
+			<section>
+				<section>
+					<h1>Let's do this!</h1>
+				</section>
+				<section>
+					<h2>Add an option to the gulp-typescript option</h2>
+					<small>
+						<a target="_blank" href="https://github.com/ivogabe/gulp-typescript#options">https://github.com/ivogabe/gulp-typescript#options</a><br>
+						<a target="_blank" href="https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#new---skiplibcheck">https://github.com/Microsoft/TypeScript/wiki/What%27s-new-in-TypeScript#new---skiplibcheck</a>
+					</small>
+				</section>
+				<section>
+					<h2>Expose Options interface on gulp-inject</h2>
+					<small>
+						<a href="https://github.com/klei/gulp-inject">https://github.com/klei/gulp-inject</a>
+					</small>
+				</section>
+				<section>
+					<h2>Create definitions for gulp-angular-templatecache</h2>
+					<small><a href="https://github.com/miickel/gulp-angular-templatecache">https://github.com/miickel/gulp-angular-templatecache</a></small>
+				</section>
+			</section>
+			<section>
+				<a href="https://github.com/DefinitelyTyped/DefinitelyTyped/pull/10065#issuecomment-232267747">
+					<h2>If at first you don't succeed...</h2>
+				</a>
 			</section>
 			<section>
 				<section>
 					<h3>Now it's your turn!</h3>
 					<img src="images/qr-slides.png" alt="https://joeskeen.github.io/dts-OpenWest2016" style="vertical-align: middle">&nbsp;&nbsp;
-					Slides: <a href="https://joeskeen.github.io/dts-OpenWest2016">joeskeen.github.io/dts-OpenWest2016</a><br> Review this
-					talk: <a href="https://joind.in/talk/bf5d7">https://joind.in/talk/bf5d7</a>&nbsp;&nbsp;
+					Slides: <a href="proxy
+					">joeskeen.github.io/dts-OpenWest2016</a><br> Review this talk: <a href="https://joind.in/talk/bf5d7">https://joind.in/talk/bf5d7</a>&nbsp;&nbsp;
 					<img src="images/qr_joindin.png" alt="https://joind.in/talk/bf5d7" style="vertical-align: middle">
 				</section>
 				<section>
@@ -155,7 +332,7 @@ console.log('TODO: Add Content Here');
 
 				width: 1200,
 				height: 800,
-				margin: .1,
+				margin: .05,
 
 				// More info https://github.com/hakimel/reveal.js#dependencies
 				dependencies: [
